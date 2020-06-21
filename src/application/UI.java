@@ -1,6 +1,10 @@
 package application;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import chess.ChessPiece;
+import chess.ChessPosition;
 import chess.Color;
 
 public class UI {
@@ -29,6 +33,17 @@ public class UI {
 	private static String[] alphabet = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
 			"q", "r", "s", "t", "u", "v", "x", "w", "y", "z" };
 
+	public static ChessPosition readChessPosition(Scanner sc) {
+		try {
+			String s = sc.nextLine();
+			String column = s.substring(0, 1);
+			int row = Integer.parseInt(s.substring(1, 2));
+			return new ChessPosition(column, row);
+		} catch (RuntimeException e) {
+			throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8");
+		}
+	}
+
 	public static void printBoard(ChessPiece[][] pieces) {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print(pieces.length - i + " ");
@@ -42,6 +57,7 @@ public class UI {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print(alphabet[i] + " ");
 		}
+		System.out.println();
 	}
 
 	private static void printPiece(ChessPiece piece) {
@@ -49,11 +65,10 @@ public class UI {
 			System.out.print("-");
 		} else {
 			if (piece.getColor() == Color.WHITE) {
-                System.out.print(ANSI_WHITE + piece + ANSI_RESET);
-            }
-            else {
-                System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
-            }
+				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+			} else {
+				System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+			}
 		}
 		System.out.print(" ");
 	}
