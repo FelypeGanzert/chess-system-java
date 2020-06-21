@@ -15,6 +15,7 @@ public class UI {
 			}
 			System.out.println();
 		}
+		
 		System.out.print("  ");
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print(alphabet[i] + " ");
